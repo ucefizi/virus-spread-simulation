@@ -20,7 +20,7 @@ function Ball(x, y, velX, velY, color, size) {
     this.color = color;
     this.size = size;
     this.stationary = false;
-    this.counter = Math.random()*1000 + 1000; // random recovery time between 1000 and 2000 frames
+    this.counter = random(1000, 2000); // random recovery time between 1000 and 2000 frames
 }
 
 Ball.prototype.draw = function() {
