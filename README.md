@@ -2,6 +2,7 @@
 
 
 Simulate the spread of a virus in a population. I start currently with 2000 people.  
+You can check the simulation live in this link: https://youssefizikitn.github.io/virus-spread-simulation/  
 
   
 To run this just clone the repo and open the html file in a browser.
