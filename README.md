@@ -1,5 +1,6 @@
 # virus-spread-simulation
 
+
 Simulate the spread of a virus in a population. I start currently with 2000 people.  
 
   
