@@ -9,10 +9,12 @@ const INFECTED = 1;
 const RECOVERED = 2;
 const DEAD = 3;
 
-const minDeathTime = 225;
-const maxDeathTime = 300;
-const minRecoveryTime = 150;
-const maxRecoveryTime = 250;
+const MIN_DEATH = 225;
+const MAX_DEATH = 300;
+const MIN_RECOVERY = 150;
+const MAX_RECOVERY = 250;
+
+const VELOCITY = 3;
 
 function random(min, max) {
   const num = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -38,9 +40,9 @@ function Ball(x, y, velX, velY, size, kind) {
   this.size = size;
   this.kind = kind;
   // random recovery time
-  this.counter_rec = random(minRecoveryTime, maxRecoveryTime); 
+  this.counter_rec = random(MIN_RECOVERY, MAX_RECOVERY); 
   // random death time
-  this.counter_death = random(minDeathTime, maxDeathTime); 
+  this.counter_death = random(MIN_DEATH, MAX_DEATH); 
 }
 
 Ball.prototype.draw = function() {
@@ -70,8 +72,8 @@ Ball.prototype.update = function() {
   if (this.kind !== DEAD) {
       this.x += this.velX;
       this.y += this.velY;
-      this.velX = random(-10,10);
-      this.velY = random(-10,10);
+      this.velX = random(-VELOCITY, VELOCITY);
+      this.velY = random(-VELOCITY, VELOCITY);
   }
 
   if (this.kind === INFECTED) {
@@ -125,12 +127,12 @@ const height = canvas.height = window.innerHeight;
 let balls = [];
 
 while (balls.length < pop_size) {
-  let size = 4;
+  let size = 5;
   let ball = new Ball(
     random(5 + size,width - size),
     random(25 + size,height - size),
-    random(-10,10),
-    random(-10,10),
+    random(-VELOCITY, VELOCITY),
+    random(-VELOCITY, VELOCITY),
     size,
     NORMAL
   );
@@ -140,13 +142,6 @@ while (balls.length < pop_size) {
 
 // Random sick Person
 balls[random(0, pop_size)].kind = INFECTED;
-
-
-// for (let i = 0; i < balls.length; i++) {
-//     if (i%4 !== 0){
-//         balls[i].stationary = true;
-//     }
-// }
 
 clickButton = function() {
   if (isPaused) {
