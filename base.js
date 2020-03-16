@@ -9,7 +9,7 @@ const INFECTED = 1;
 const RECOVERED = 2;
 const DEAD = 3;
 
-const minDeathTime = 200;
+const minDeathTime = 225;
 const maxDeathTime = 300;
 const minRecoveryTime = 150;
 const maxRecoveryTime = 250;
@@ -177,6 +177,8 @@ function loop() {
         ctx.fillStyle = getColor(i);
         ctx.fillText(data[i], 5, 25 + 20*i);
     }
+    ctx.fillStyle = "pink";
+        ctx.fillText(Math.round(10000*data[DEAD] / (data[INFECTED] + data[RECOVERED] + data[DEAD]))/100 + "%", 5, 110);
 
     for (let i = 0; i < balls.length; i++) {
       balls[i].draw();
