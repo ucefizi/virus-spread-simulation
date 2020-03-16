@@ -1,10 +1,4 @@
-const canvas = document.querySelector('canvas');
-
-const ctx = canvas.getContext('2d');
-
-const width = canvas.width = window.innerWidth;
-const height = canvas.height = window.innerHeight;
-
+// define the objects
 
 function random(min, max) {
     const num = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -73,36 +67,6 @@ Ball.prototype.update = function() {
     }
 }
 
-
-
-
-// Start simulation
-let pop_size = 2000;
-let balls = [];
-
-while (balls.length < pop_size) {
-  let size = 3;
-  let ball = new Ball(
-    
-    random(0 + size,width - size),
-    random(0 + size,height - size),
-    random(-5,5),
-    random(-5,5),
-    'rgb(' + 100 + ',' + 100 + ',' + 100 +')',
-    size
-  );
-
-  balls.push(ball);
-}
-
-balls[100].color = 'rgb(' + 255 + ',' + 0 + ',' + 0 +')'; //random sick person we can start with more than one
-
-// for (let i = 0; i < balls.length; i++) {
-//     if (i%4 !== 0){
-//         balls[i].stationary = true;
-//     }
-// }
-
 Ball.prototype.collisionDetect = function() {
     for (let j = 0; j < balls.length; j++) {
       if (!(this === balls[j])) {
@@ -116,6 +80,47 @@ Ball.prototype.collisionDetect = function() {
       }
     }
 }
+
+
+
+
+// Start simulation
+
+const canvas = document.querySelector('canvas');
+
+const ctx = canvas.getContext('2d');
+
+const width = canvas.width = window.innerWidth;
+const height = canvas.height = window.innerHeight;
+
+let pop_size = 2000;
+let balls = [];
+
+while (balls.length < pop_size) {
+  let size = 4;
+  let ball = new Ball(
+    
+    random(0 + size,width - size),
+    random(0 + size,height - size),
+    random(-5,5),
+    random(-5,5),
+    'rgb(' + 100 + ',' + 100 + ',' + 100 +')',
+    size
+  );
+
+  balls.push(ball);
+}
+
+balls[random(0, 1999)].color = 'rgb(' + 255 + ',' + 0 + ',' + 0 +')'; //random sick person
+balls[random(0, 1999)].color = 'rgb(' + 255 + ',' + 0 + ',' + 0 +')'; //random sick person
+
+// for (let i = 0; i < balls.length; i++) {
+//     if (i%4 !== 0){
+//         balls[i].stationary = true;
+//     }
+// }
+
+
 
 
 function loop() {
