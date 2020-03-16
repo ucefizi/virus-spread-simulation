@@ -1,6 +1,9 @@
 // define the objects
 var isPaused = false;
-var refreshRate = 0;
+
+const INFECTED = 0;
+const RECOVERED = 1;
+const DEAD = 2;
 
 function random(min, max) {
     const num = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -129,10 +132,6 @@ function resume() {
   isPaused = false;
 }
 
-function setRefreshRate(rate) {
-  refreshRate = rate;
-}
-
 function loop() {
   if (!isPaused) {
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
@@ -144,10 +143,7 @@ function loop() {
       balls[i].collisionDetect();
     }
   }
-  setTimeout(function() {
-    requestAnimationFrame(loop);
-  }, refreshRate);
-  
+  requestAnimationFrame(loop);
 }
 
-loop();
+requestAnimationFrame(loop);
