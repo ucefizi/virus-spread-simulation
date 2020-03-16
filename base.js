@@ -111,7 +111,7 @@ while (balls.length < pop_size) {
   balls.push(ball);
 }
 
-balls[random(0, 1999)].color = 'rgb(' + 255 + ',' + 0 + ',' + 0 +')'; //random sick person
+balls[random(0, pop_size)].color = 'rgb(' + 255 + ',' + 0 + ',' + 0 +')'; //random sick person
 
 // for (let i = 0; i < balls.length; i++) {
 //     if (i%4 !== 0){
