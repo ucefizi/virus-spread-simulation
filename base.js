@@ -20,7 +20,8 @@ function Ball(x, y, velX, velY, color, size) {
     this.color = color;
     this.size = size;
     this.stationary = false;
-    this.counter = random(1000, 2000); // random recovery time between 1000 and 2000 frames
+    this.counter_rec = random(1000, 2000); // random recovery time between 1000 and 2000 frames
+    this.counter_death = random(1500, 2500); // random death time if not recovered time between 1500 and 2500 frames
 }
 
 Ball.prototype.draw = function() {
@@ -54,12 +55,21 @@ Ball.prototype.update = function() {
         this.velY = random(-5,5);
     }
 
-    if (this.counter > 0 && this.color === 'rgb(' + 255 + ',' + 0 + ',' + 0 +')') {
-        this.counter--;
+    if (this.counter_rec > 0 && this.color === 'rgb(' + 255 + ',' + 0 + ',' + 0 +')') {
+        this.counter_rec--;
     }
 
-    if (this.counter <= 0) {
+    if (this.counter_death > 0 && this.color === 'rgb(' + 255 + ',' + 0 + ',' + 0 +')') {
+        this.counter_death--;
+    }
+
+    if (this.counter_rec <= 0) {
         this.color = 'rgb(' + 0 + ',' + 255 + ',' + 0 +')';
+    }
+
+    if (this.counter_death <= 0) {
+        this.color = 'rgb(' + 0 + ',' + 0 + ',' + 255 +')';
+        this.stationary = true;
     }
 }
 
