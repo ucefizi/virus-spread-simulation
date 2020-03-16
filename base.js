@@ -45,8 +45,8 @@ Ball.prototype.update = function() {
     if (!this.stationary) {
         this.x += this.velX;
         this.y += this.velY;
-        this.velX = random(-5,5);
-        this.velY = random(-5,5);
+        this.velX = random(-10,10);
+        this.velY = random(-10,10);
     }
 
     if (this.counter_rec > 0 && this.color === 'rgb(' + 255 + ',' + 0 + ',' + 0 +')') {
@@ -93,7 +93,7 @@ const ctx = canvas.getContext('2d');
 const width = canvas.width = window.innerWidth;
 const height = canvas.height = window.innerHeight;
 
-let pop_size = 2000;
+let pop_size = 3000;
 let balls = [];
 
 while (balls.length < pop_size) {
@@ -102,8 +102,8 @@ while (balls.length < pop_size) {
     
     random(0 + size,width - size),
     random(0 + size,height - size),
-    random(-5,5),
-    random(-5,5),
+    random(-10,10),
+    random(-10,10),
     'rgb(' + 100 + ',' + 100 + ',' + 100 +')',
     size
   );
