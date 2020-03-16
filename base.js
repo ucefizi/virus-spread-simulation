@@ -7,10 +7,10 @@ const INFECTED = 1;
 const RECOVERED = 2;
 const DEAD = 3;
 
-const minDeathTime = 150;
+const minDeathTime = 200;
 const maxDeathTime = 300;
-const minRecoveryTime = 200;
-const maxRecoveryTime = 300;
+const minRecoveryTime = 150;
+const maxRecoveryTime = 250;
 
 function random(min, max) {
   const num = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -19,12 +19,12 @@ function random(min, max) {
 
 function getColor(kind) {
   switch(kind) {
-    case NORMAL: return 'rgb(' + 100 + ',' + 100 + ',' + 100 +')';
-    case RECOVERED: return 'rgb(' + 0 + ',' + 255 + ',' + 0 +')';
-    case INFECTED: return 'rgb(' + 255 + ',' + 0 + ',' + 0 +')';
-    case DEAD: return 'rgb(' + 0 + ',' + 0 + ',' + 255 +')';
+    case NORMAL: return 'rgb(100,100,100)';
+    case RECOVERED: return 'rgb(0,255,0)';
+    case INFECTED: return 'rgb(255,0,0)';
+    case DEAD: return 'rgb(0,0,255)';
     default :
-      return 'rgb(' + 100 + ',' + 100 + ',' + 100 +')';
+      return 'rgb(100,100,100)';
   }
 }
 
@@ -35,10 +35,10 @@ function Ball(x, y, velX, velY, size, kind) {
   this.velY = velY;
   this.size = size;
   this.kind = kind;
-  // random recovery time between 1000 and 2000 frames
-  this.counter_rec = random(minDeathTime, maxDeathTime); 
-  // random death time if not recovered time between 1500 and 2500 frames
-  this.counter_death = random(minDeathTime, maxRecoveryTime); 
+  // random recovery time
+  this.counter_rec = random(minRecoveryTime, maxRecoveryTime); 
+  // random death time
+  this.counter_death = random(minDeathTime, maxDeathTime); 
 }
 
 Ball.prototype.draw = function() {
@@ -72,14 +72,16 @@ Ball.prototype.update = function() {
       this.velY = random(-10,10);
   }
 
-  if (this.kind == INFECTED && this.counter_rec > 0) {
-    --this.counter_rec;
+  if (this.kind === INFECTED) {
+    if (this.counter_rec > 0) {
+      this.counter_rec--;
+    }
+    if (this.counter_death > 0) {
+      this.counter_death--;
+    }
     if (this.counter_rec <= 0) {
       this.kind = RECOVERED;
-    }
-  } else if (this.kind == INFECTED && this.counter_death > 0) {
-    this.counter_death--;
-    if (this.counter_death <= 0) {
+    } else if (this.counter_death <= 0) {
       this.kind = DEAD;
     }
   }
@@ -93,7 +95,7 @@ Ball.prototype.collisionDetect = function() {
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance < this.size + balls[j].size 
-        && balls[j].kind === INFECTED && this.kind != RECOVERED) {
+        && balls[j].kind === INFECTED && this.kind === NORMAL) {
         this.kind = INFECTED;
       }
     }
