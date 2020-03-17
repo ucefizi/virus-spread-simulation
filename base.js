@@ -24,9 +24,9 @@ function random(min, max) {
 function getColor(kind) {
   switch(kind) {
     case NORMAL: return 'rgb(100,100,100)';
-    case RECOVERED: return 'rgb(0,255,0)';
-    case INFECTED: return 'rgb(255,0,0)';
-    case DEAD: return 'rgb(0,0,255)';
+    case RECOVERED: return 'rgb(70,200,70)';
+    case INFECTED: return 'rgb(200,70,70)';
+    case DEAD: return 'rgb(70,70,200)';
     default :
       return 'rgb(100,100,100)';
   }
