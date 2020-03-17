@@ -14,7 +14,7 @@ const MAX_DEATH = 300;
 const MIN_RECOVERY = 150;
 const MAX_RECOVERY = 250;
 
-const VELOCITY = 3;
+const VELOCITY = 5;
 
 function random(min, max) {
   const num = Math.floor(Math.random() * (max - min + 1)) + min;
