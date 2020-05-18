@@ -53,7 +53,7 @@ Ball.prototype.draw = function() {
 }
 
 Ball.prototype.update = function() {
-  if ((this.x + this.size) >= width - 5) {
+  if ((this.x + this.size) >= canvas.width - 5) {
     this.velX = -(this.velX);
   }
 
@@ -61,7 +61,7 @@ Ball.prototype.update = function() {
     this.velX = -(this.velX);
   }
 
-  if ((this.y + this.size) >= height - 25) {
+  if ((this.y + this.size) >= canvas.height - 25) {
     this.velY = -(this.velY);
   }
 
@@ -121,16 +121,17 @@ const canvas = document.querySelector('canvas');
 
 const ctx = canvas.getContext('2d');
 
-const width = canvas.width = window.innerWidth;
-const height = canvas.height = window.innerHeight;
+canvas.resize = function(){this.width = canvas.width = window.innerWidth; canvas.height = window.innerHeight;};
+canvas.resize();
+window.onresize = ()=>{canvas.resize();}
 
 let balls = [];
 
 while (balls.length < pop_size) {
   let size = 5;
   let ball = new Ball(
-    random(5 + size,width - size),
-    random(25 + size,height - size),
+    random(5 + size,canvas.width - size),
+    random(25 + size,canvas.height - size),
     random(-VELOCITY, VELOCITY),
     random(-VELOCITY, VELOCITY),
     size,
@@ -152,21 +153,21 @@ clickButton = function() {
 }
 
 function pause() {
-  let button = document.querySelector("span#button");
+  let button = document.getElementById("button");
   isPaused = true;
-  button.innerHTML = '<img height="30px" width="30px" src="play.png" />';
+  button.src = "play.png";
 }
 
 function resume() {
-  let button = document.querySelector("span#button");
+  let button = document.getElementById("button");
   isPaused = false;
-  button.innerHTML = '<img height="30px" width="30px" src="pause.png" />';
+  button.src = "pause.png";
 }
 
 function loop() {
   if (!isPaused) {
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-    ctx.fillRect(0, 0, width, height);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = "20px Arial";
     for(let i = 0; i<4; i++) {
         ctx.fillStyle = getColor(i);
